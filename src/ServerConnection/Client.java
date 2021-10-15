@@ -31,6 +31,7 @@ public class Client {
                 out.println(request);
 
                 String serverResponse = server.readLine();
+
                 System.out.println("server request " + serverResponse);
                 // write the booking information to a file named booking
 

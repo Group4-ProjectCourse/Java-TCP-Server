@@ -22,11 +22,11 @@ public class Server {
         // write your code here
 
         ServerSocket ss = new ServerSocket(2400);
-
+        System.out.println("waiting for client connection");
         try {
 
             while (true) {
-                System.out.println("waiting for client connection");
+
                 Socket socket = ss.accept();
                 System.out.println("client connected");
 

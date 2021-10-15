@@ -1,16 +1,18 @@
 package ServerConnection;
 
+import javax.xml.stream.FactoryConfigurationError;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class ClientHandler extends  Thread {
+public class ClientHandler implements Runnable {
 
     private Socket client;
     private BufferedReader in;
     private PrintWriter out;
+    private boolean end = false;
 
     BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
     BufferedWriter key = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -31,11 +33,34 @@ public class ClientHandler extends  Thread {
 
     public void run() {
 
+        String stringData= null;
         try {
-            out.println(InetAddress.getLocalHost().getHostAddress());
-
-        } catch (UnknownHostException e) {
+            stringData = in.readLine();
+        } catch (IOException e) {
             e.printStackTrace();
+        }
+        try {
+            while (!end ) {
+
+// we read the client response  here.
+                assert stringData != null;
+                System.out.println("clientResponse " + stringData.toLowerCase());
+
+
+                    out.println(InetAddress.getLocalHost().getHostAddress());
+                    end= true;
+                }
+
+
+        } catch (NullPointerException | IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                in.close();
+                end= false;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
