@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public Switch lampSwitch;
     public TextView lamptxt;
     public ImageView lightON;
-
+    private DataBase db = new DataBase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lampSwitch = (Switch) findViewById(R.id.lampSwitch);
         lightON = (ImageView) findViewById(R.id.lightON);
         lamptxt = (TextView) findViewById(R.id.lamptxt);
-
-        Map<String, Object> updates = new HashMap<>();
-
-
-        // the reference to the firebasedatabase
-        // it goes from devices/Lamp/Ambient/ then we change the value in the lampSwitch
-        DatabaseReference dbref = FirebaseDatabase
-                .getInstance("https://smart-house-ae2d9-default-rtdb.europe-west1.firebasedatabase.app/")
-                .getReference().child("Devices").child("Lamp").child("Ambient");
 
 
         //   String read = in.readLine();
@@ -75,21 +66,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (lampSwitch.isChecked()) {
                     lamptxt.setText("LIGHT");
 
-                    // we update our Hash-map when the light is on
-                    updates.put("LightSwitch", "LIGHT");
 
-                    // the values we put into the hash-map we will add to the real-time database
-                    dbref.updateChildren(updates);
-                    sendMessage(updates.toString());
+
+
+                    sendMessage(lamptxt.getText().toString());
+                    db.UpdateLampElement(lamptxt.getText().toString());
 
                     lightON.setImageResource(R.drawable.lighton);
                 } else {
                     lamptxt.setText("DARK");
 
-                    updates.put("LightSwitch", "DARK");
-                    dbref.updateChildren(updates);
-                    sendMessage(updates.toString());
-                    System.out.println(updates.toString());
+                    sendMessage(lamptxt.getText().toString());
+                    db.UpdateLampElement(lamptxt.getText().toString());
                     lightON.setImageResource(R.drawable.lightoff);
                 }
             }
