@@ -1,6 +1,6 @@
 package ServerConnection;
 
-import javax.xml.stream.FactoryConfigurationError;
+// import javax.xml.stream.FactoryConfigurationError;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -52,9 +52,11 @@ public class ClientHandler implements Runnable {
                 }
 
 
-        } catch (NullPointerException | IOException e) {
+        } catch (NullPointerException  e) {
             e.printStackTrace();
-        } finally {
+        } catch (IOException e){
+            e.printStackTrace();
+        } finally{
             try {
                 in.close();
                 end= false;
