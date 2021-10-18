@@ -1,6 +1,6 @@
-package Data;
+package main.java.Data;
 
-import Model.RegisterUser;
+import main.java.Model.RegisterUser;
 
 import java.sql.*;
 import java.util.ArrayList;

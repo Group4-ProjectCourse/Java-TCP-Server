@@ -1,4 +1,4 @@
-package ServerConnection;
+package main.java.ServerConnection;
 
 import java.io.*;
 import java.net.InetAddress;

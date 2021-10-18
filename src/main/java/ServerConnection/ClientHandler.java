@@ -1,4 +1,4 @@
-package ServerConnection;
+package main.java.ServerConnection;
 
 import javax.xml.stream.FactoryConfigurationError;
 import java.io.*;
