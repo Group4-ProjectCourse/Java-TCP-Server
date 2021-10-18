@@ -1,4 +1,4 @@
-package main.java.Model;
+package Model;
 
 public class RegisterUser {
     // we do not kow yet what field the register user should have
