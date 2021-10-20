@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public static final int SERVERPORT = 2400;
-    public static final String SERVER_IP = "192.168.1.8";
+    public static final String SERVER_IP = "194.47.40.186";
 
     public Switch lampSwitch;
     public TextView lamptxt;

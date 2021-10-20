@@ -47,6 +47,8 @@ public class ClientHandler implements Runnable {
                 System.out.println("clientResponse " + stringData.toLowerCase());
 
 
+
+
                     out.println(InetAddress.getLocalHost().getHostAddress());
                     end= true;
                 }
