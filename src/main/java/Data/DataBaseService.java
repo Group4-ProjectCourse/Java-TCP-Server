@@ -1,6 +1,7 @@
 package Data;
 
 import Model.RegisterUser;
+import com.google.api.client.util.Data;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -35,19 +36,21 @@ public class DataBaseService {
     private DatabaseReference dbref;
     private FirebaseDatabase firebaseDatabase;
     private FileInputStream serviceAccount = null;
-    FirebaseOptions options= null;
-    private  static Map<String, Object> data;
+    FirebaseOptions options = null;
+    private static Map<String, Object> data;
 
 
     public DataBaseService() {
         try {
-            serviceAccount = new FileInputStream("C:\\Users\\yeahm\\Desktop\\Java TCP Server Application\\Java-TCP-Server\\src\\main\\java\\smart_house.json");
+            serviceAccount = new FileInputStream("C:\\Users\\krist\\Desktop\\Faks\\Software engineering 2\\Project\\key.json");
             options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl("https://smart-house-ae2d9-default-rtdb.europe-west1.firebasedatabase.app/")
                     .build();
             BasicConfigurator.configure();
             FirebaseApp.initializeApp(options);
+            firebaseDatabase = FirebaseDatabase.getInstance();
+
         } catch (
                 FileNotFoundException e) {
             System.out.println("ERROR: invalid service account credentials. See README.");
@@ -60,24 +63,33 @@ public class DataBaseService {
 
     }
 
-    public  static  void writeToDatabase() {
+    public FirebaseDatabase getDb() {
+        return firebaseDatabase;
+    }
+
+    public static void writeToDatabase() {
+        DataBaseService fbs = null;
+        fbs = new DataBaseService();
+
+        DatabaseReference ref = fbs.getDb()
+                .getReference("/Devices/Air-Condition/Modes/Day");
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://smart-house-ae2d9-default-rtdb.europe-west1.firebasedatabase.app/");
-        DatabaseReference ref = database.getReference();
-        System.out.println("referemce " + ref);
-        DatabaseReference refs = ref.child("Devices").child("Lamp").child("Ambient");
+//        DatabaseReference ref = database.getReference();
+        System.out.println("reference " + ref);
+//        DatabaseReference refs = ref.child("Sensors").child("humidity");
+//        ref.child("Devices").child("Air-Condition").child("Modes").child("Day").setValue("13C");
 
-        System.out.println(refs);
-        data = new HashMap<String, Object>();
-        data.put("LightSwitch","LIGHT");
+        System.out.println(ref);
+//        data = new HashMap<String, Object>();
+//        data.put("Humidity", 35);
 
+//        refs.setValue();
         System.out.println(data);
-        refs.updateChildren(data, new DatabaseReference.CompletionListener() {
+        ref.updateChildren(data, new DatabaseReference.CompletionListener() {
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 System.out.println("complete" + databaseReference.push());
             }
         });
-
-
 
 
     }
@@ -87,23 +99,21 @@ public class DataBaseService {
     // trying to change the lightSwitch state
 
 
-public  void handleWriteToDatabase() {
-    final CountDownLatch done = new CountDownLatch(1);
+    public void handleWriteToDatabase() {
+        final CountDownLatch done = new CountDownLatch(1);
         FirebaseDatabase.getInstance().getReference("Devices/Lamp/Ambient/LightSwitch").setValue("DARK", new DatabaseReference.CompletionListener() {
-        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-            done.countDown();
-        }
-    });
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                done.countDown();
+            }
+        });
         try {
-        done.await();
-    } catch (InterruptedException e) {
-        e.printStackTrace();
+            done.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
     }
-
-
-
-
-}
 
 }
 

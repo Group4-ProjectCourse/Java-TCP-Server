@@ -1,5 +1,7 @@
 package ServerConnection;
 
+import Data.DataBaseService;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -8,7 +10,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server {
-
 
 
     public static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();
@@ -24,6 +25,17 @@ public class Server {
         ServerSocket ss = new ServerSocket(2400);
         System.out.println("waiting for client connection");
         try {
+
+//            DataBaseService.writeToDatabase();
+            Thread t = new Thread(new ShowDbChanges());
+
+            t.run();
+            try {
+                Thread.sleep(100000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
 
             while (true) {
 
@@ -43,5 +55,5 @@ public class Server {
             ss.close();
         }
     }
-    }
+}
 
