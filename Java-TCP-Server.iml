@@ -18,7 +18,7 @@
     </content>
     <orderEntry type="jdk" jdkName="10" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.google.firebase:firebase-admin:8.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.firebase:firebase-admin:8.1.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.api-client:google-api-client:1.32.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.oauth-client:google-oauth-client:1.31.5" level="project" />
     <orderEntry type="library" name="Maven: com.google.http-client:google-http-client-gson:1.39.2" level="project" />
@@ -79,12 +79,12 @@
     <orderEntry type="library" name="Maven: io.grpc:grpc-stub:1.39.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:30.1.1-android" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.32" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty-codec-http:4.1.66.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty-common:4.1.66.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.1.66.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.66.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.66.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.66.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.66.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec-http:4.1.67.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-common:4.1.67.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.1.67.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.67.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.67.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.67.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.67.Final" level="project" />
   </component>
 </module>
