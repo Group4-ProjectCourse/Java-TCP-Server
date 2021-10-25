@@ -42,7 +42,7 @@ public class DataBaseService {
 
     public DataBaseService() {
         try {
-            serviceAccount = new FileInputStream("C:\\Users\\krist\\Desktop\\Faks\\Software engineering 2\\Project\\key.json");
+            serviceAccount = new FileInputStream("C:\\Users\\yeahm\\Downloads\\FireBaseKey.json");
             options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl("https://smart-house-ae2d9-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -80,8 +80,8 @@ public class DataBaseService {
 //        ref.child("Devices").child("Air-Condition").child("Modes").child("Day").setValue("13C");
 
         System.out.println(ref);
-//        data = new HashMap<String, Object>();
-//        data.put("Humidity", 35);
+       data = new HashMap<String, Object>();
+      data.put("Humidity", 35);
 
 //        refs.setValue();
         System.out.println(data);
@@ -99,9 +99,9 @@ public class DataBaseService {
     // trying to change the lightSwitch state
 
 
-    public void handleWriteToDatabase() {
+    public void handleWriteToDatabase(String s) {
         final CountDownLatch done = new CountDownLatch(1);
-        FirebaseDatabase.getInstance().getReference("Devices/Lamp/Ambient/LightSwitch").setValue("DARK", new DatabaseReference.CompletionListener() {
+        FirebaseDatabase.getInstance().getReference("Devices/Lamp/Ambient/LightSwitch").setValue(s, new DatabaseReference.CompletionListener() {
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 done.countDown();
             }
@@ -112,6 +112,31 @@ public class DataBaseService {
             e.printStackTrace();
         }
 
+
+    }
+    public  void testWriteToDatabase(String value) {
+        DataBaseService fbs = null;
+        fbs = new DataBaseService();
+
+        DatabaseReference ref = fbs.getDb()
+                .getReference("/Devices/Lamp/Ambient/LightSwitch");
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://smart-house-ae2d9-default-rtdb.europe-west1.firebasedatabase.app/");
+//        DatabaseReference ref = database.getReference();
+        System.out.println("reference " + ref);
+//        DatabaseReference refs = ref.child("Sensors").child("humidity");
+//        ref.child("Devices").child("Air-Condition").child("Modes").child("Day").setValue("13C");
+
+        System.out.println(ref);
+        data = new HashMap<String, Object>();
+        data.put("LightSwitch", value);
+
+//        refs.setValue();
+        System.out.println(data);
+        ref.updateChildren(data, new DatabaseReference.CompletionListener() {
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                System.out.println("complete" + databaseReference.push());
+            }
+        });
 
     }
 

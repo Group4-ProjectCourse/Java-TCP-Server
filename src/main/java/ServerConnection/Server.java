@@ -26,10 +26,10 @@ public class Server {
         System.out.println("waiting for client connection");
         try {
 
-//            DataBaseService.writeToDatabase();
+          //  DataBaseService.writeToDatabase();
             Thread t = new Thread(new ShowDbChanges());
 
-            t.run();
+            t.start();
             try {
                 Thread.sleep(100000);
             } catch (InterruptedException e) {

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public static final int SERVERPORT = 2400;
-    public static final String SERVER_IP = "194.47.40.186";
+    public static final String SERVER_IP = "192.168.1.8";
 
     public Switch lampSwitch;
     public TextView lamptxt;
@@ -70,14 +70,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                     sendMessage(lamptxt.getText().toString());
-                    db.UpdateLampElement(lamptxt.getText().toString());
+
+                    // client should not be able to acces the database and update it for now. Server should handle it
+                   // db.UpdateLampElement(lamptxt.getText().toString());
 
                     lightON.setImageResource(R.drawable.lighton);
                 } else {
                     lamptxt.setText("DARK");
 
                     sendMessage(lamptxt.getText().toString());
-                    db.UpdateLampElement(lamptxt.getText().toString());
+                   // db.UpdateLampElement(lamptxt.getText().toString());
                     lightON.setImageResource(R.drawable.lightoff);
                 }
             }
