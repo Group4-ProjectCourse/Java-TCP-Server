@@ -17,6 +17,7 @@ public class ShowDbChanges implements Runnable {
 
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Object document = dataSnapshot.getValue();
+                System.out.println("Updated values:");
                 System.out.println(document);
             }
 

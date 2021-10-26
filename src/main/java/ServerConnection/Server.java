@@ -43,7 +43,7 @@ public class Server {
                 System.out.println("client connected");
 
 
-                // this class will handle the mutlithreaded server
+                // this class will handle the multithreaded server
                 ClientHandler clientThread = new ClientHandler(socket);
                 pool.execute(clientThread);
 
