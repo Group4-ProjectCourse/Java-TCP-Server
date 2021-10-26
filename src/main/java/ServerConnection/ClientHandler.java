@@ -19,6 +19,7 @@ public class ClientHandler implements Runnable {
     BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
     BufferedWriter key = new BufferedWriter(new OutputStreamWriter(System.out));
 
+
     private static DataBaseService dataBaseService;
 
 
@@ -31,35 +32,33 @@ public class ClientHandler implements Runnable {
     }
 
 
-
     // This class will handle the client request, such as the database request
     // for now it will just send the host address
 
     public void run() {
 
 
-        String stringData= null;
+        String stringData = null;
         try {
             stringData = in.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            while (!end ) {
+
+            while (!end) {
 
 // we read the client response  here.
                 assert stringData != null;
                 System.out.println("clientResponse " + stringData.toLowerCase());
-
+                //dataBaseService.testWriteToDatabase("LIGHT");
                 // here we should get the client response such as value change (LAMP= DARK or LAMP = LIGHT)
-              // DataBaseService.testWriteToDatabase("DARK");
+                DataBaseService.handleLightSwitch(stringData.toUpperCase());
 
 
-
-
-                    out.println(InetAddress.getLocalHost().getHostAddress());
-                    end= true;
-                }
+                out.println(InetAddress.getLocalHost().getHostAddress());
+                end = true;
+            }
 
 
         } catch (NullPointerException | IOException e) {
@@ -67,10 +66,12 @@ public class ClientHandler implements Runnable {
         } finally {
             try {
                 in.close();
-                end= false;
+                end = false;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
+
 }

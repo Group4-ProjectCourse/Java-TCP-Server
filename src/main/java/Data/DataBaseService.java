@@ -42,7 +42,7 @@ public class DataBaseService {
 
     public DataBaseService() {
         try {
-            serviceAccount = new FileInputStream("C:\\Users\\krist\\Desktop\\Faks\\Software engineering 2\\Project\\Key.json");
+            serviceAccount = new FileInputStream("C:\\Users\\yeahm\\Downloads\\folder\\Key.json");
             options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl("https://smart-house-ae2d9-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -98,7 +98,7 @@ public class DataBaseService {
 
     }
 
-    public static void testWriteToDatabase(String value) {
+    public static void handleLightSwitch(String value) {
         DataBaseService fbs = null;
         fbs = new DataBaseService();
 
