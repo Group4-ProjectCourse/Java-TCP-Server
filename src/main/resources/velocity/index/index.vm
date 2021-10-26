@@ -1,0 +1,5 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+    <h1>$msg.get("INDEX_HEADING")</h1>
+    <p>Software Development project Smart House and simple REST API server based on Spark Java Framework. Currently 3 routes available: /index /cards /cards/:uuid</p>
+#end

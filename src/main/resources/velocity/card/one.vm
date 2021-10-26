@@ -1,0 +1,14 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+    #if($card)
+    <h1>$card.getUUID()</h1>
+    <h2>$card.getPassword()</h2>
+    <div class="card">
+        <div class="cardCover">
+            <img src="$card.getDefaultPicture()" alt="$card.getUUID()">
+        </div>
+    </div>
+    #else
+    <h1>$msg.get("CARDS_CARD_NOT_FOUND")</h1>
+    #end
+#end

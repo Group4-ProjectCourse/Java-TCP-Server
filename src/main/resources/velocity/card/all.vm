@@ -1,0 +1,16 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<h1>$msg.get("INDEX_HEADING")</h1>
+<h2>$msg.get("INDEX_REGISTERED_USERS", $cards.size())</h2>
+    #foreach($card in $cards)
+    <ul>
+        <li>
+            <a href="$WebPath.getCARDS()$card.getUUID()">$msg.get("INDEX_CARD_OF_THE_DAY_LINK", $card.getUUID(), $card.getPassword())</a>
+            <img class="img-index" src="$card.getDefaultPicture()" alt="$card.getUUID()" style="width: 50%; height: 20%; border-radius: 15px; border: 5px solid black">
+            $card
+            <br>
+        </li>
+    </ul>
+    #end
+    ##    <p>$msg.get("INDEX_PASSWORD_INFO")</p>
+#end
