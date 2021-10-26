@@ -26,7 +26,7 @@ public class Server {
         System.out.println("waiting for client connection");
         try {
 
-            DataBaseService.testWriteToDatabase("DARK");
+            DataBaseService.testWriteToDatabase("LIGHT");
             Thread t = new Thread(new ShowDbChanges());
 
             t.start();
