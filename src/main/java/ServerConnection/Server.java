@@ -26,7 +26,7 @@ public class Server {
         System.out.println("waiting for client connection");
         try {
 
-          //  DataBaseService.writeToDatabase();
+            DataBaseService.testWriteToDatabase("DARK");
             Thread t = new Thread(new ShowDbChanges());
 
             t.start();
@@ -41,7 +41,7 @@ public class Server {
 
                 Socket socket = ss.accept();
                 System.out.println("client connected");
-
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                 // this class will handle the mutlithreaded server
                 ClientHandler clientThread = new ClientHandler(socket);

@@ -52,7 +52,7 @@ public class ClientHandler implements Runnable {
                 System.out.println("clientResponse " + stringData.toLowerCase());
 
                 // here we should get the client response such as value change (LAMP= DARK or LAMP = LIGHT)
-                dataBaseService.testWriteToDatabase("LIGHT");
+              // DataBaseService.testWriteToDatabase("DARK");
 
 
 

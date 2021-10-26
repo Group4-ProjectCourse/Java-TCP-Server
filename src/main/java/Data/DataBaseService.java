@@ -42,7 +42,7 @@ public class DataBaseService {
 
     public DataBaseService() {
         try {
-            serviceAccount = new FileInputStream("C:\\Users\\yeahm\\Downloads\\FireBaseKey.json");
+            serviceAccount = new FileInputStream("C:\\Users\\yeahm\\Downloads\\folder\\Key.json");
             options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl("https://smart-house-ae2d9-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -99,9 +99,9 @@ public class DataBaseService {
     // trying to change the lightSwitch state
 
 
-    public void handleWriteToDatabase(String s) {
+    public static void  handleWriteToDatabase(String s) {
         final CountDownLatch done = new CountDownLatch(1);
-        FirebaseDatabase.getInstance().getReference("Devices/Lamp/Ambient/LightSwitch").setValue(s, new DatabaseReference.CompletionListener() {
+        FirebaseDatabase.getInstance("https://smart-house-ae2d9-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Devices/Lamp/Ambient/LightSwitch").setValue(s, new DatabaseReference.CompletionListener() {
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 done.countDown();
             }
@@ -114,12 +114,12 @@ public class DataBaseService {
 
 
     }
-    public  void testWriteToDatabase(String value) {
+    public static  void testWriteToDatabase(String value) {
         DataBaseService fbs = null;
         fbs = new DataBaseService();
 
         DatabaseReference ref = fbs.getDb()
-                .getReference("/Devices/Lamp/Ambient/LightSwitch");
+                .getReference("/Devices/Lamp/Ambient");
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://smart-house-ae2d9-default-rtdb.europe-west1.firebasedatabase.app/");
 //        DatabaseReference ref = database.getReference();
         System.out.println("reference " + ref);
