@@ -1,5 +1,7 @@
 package ServerConnection;
 
+import Data.DataBaseService;
+
 import javax.xml.stream.FactoryConfigurationError;
 import java.io.*;
 import java.net.InetAddress;
@@ -17,6 +19,8 @@ public class ClientHandler implements Runnable {
     BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
     BufferedWriter key = new BufferedWriter(new OutputStreamWriter(System.out));
 
+    private static DataBaseService dataBaseService;
+
 
     public ClientHandler(Socket clientHandler) throws IOException {
         this.client = clientHandler;
@@ -33,6 +37,7 @@ public class ClientHandler implements Runnable {
 
     public void run() {
 
+
         String stringData= null;
         try {
             stringData = in.readLine();
@@ -45,6 +50,9 @@ public class ClientHandler implements Runnable {
 // we read the client response  here.
                 assert stringData != null;
                 System.out.println("clientResponse " + stringData.toLowerCase());
+
+                // here we should get the client response such as value change (LAMP= DARK or LAMP = LIGHT)
+              // DataBaseService.testWriteToDatabase("DARK");
 
 
 

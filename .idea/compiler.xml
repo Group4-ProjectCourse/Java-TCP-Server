@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Java-TCP-Server" target="" />
+      <module name="Java-TCP-Server" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
