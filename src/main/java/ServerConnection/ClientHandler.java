@@ -53,7 +53,7 @@ public class ClientHandler implements Runnable {
                 System.out.println("clientResponse " + stringData.toLowerCase());
                 //dataBaseService.testWriteToDatabase("LIGHT");
                 // here we should get the client response such as value change (LAMP= DARK or LAMP = LIGHT)
-                DataBaseService.handleLightSwitch(stringData.toUpperCase());
+           dataBaseReference(stringData.toUpperCase());
 
 
                 out.println(InetAddress.getLocalHost().getHostAddress());
@@ -73,5 +73,23 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    // this method should check whether the string being sent follows a certain structure
+public static void dataBaseReference(String stringData) {
+
+
+
+        if (stringData.equals("LIGHT") || stringData.equals("DARK")) {
+
+            DataBaseService.handleLightSwitch(stringData);
+
+
+        }else  if (stringData.equals("OPEN") || stringData.equals("CLOSED")) {
+            DataBaseService.handleDoorSwitch(stringData);
+
+        }else {
+
+        }
+
+    }
 
 }

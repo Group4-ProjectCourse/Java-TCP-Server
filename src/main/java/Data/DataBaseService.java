@@ -124,5 +124,32 @@ public class DataBaseService {
 
     }
 
+
+    public static void handleDoorSwitch(String value) {
+        DataBaseService fbs = null;
+        fbs = new DataBaseService();
+
+        DatabaseReference ref = fbs.getDb()
+                .getReference("/Devices/Door/State");
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://smart-house-ae2d9-default-rtdb.europe-west1.firebasedatabase.app/");
+//        DatabaseReference ref = database.getReference();
+        System.out.println("reference " + ref);
+//        DatabaseReference refs = ref.child("Sensors").child("humidity");
+//        ref.child("Devices").child("Air-Condition").child("Modes").child("Day").setValue("13C");
+
+        System.out.println(ref);
+        data = new HashMap<String, Object>();
+        data.put("DoorSwitch", value);
+
+//        refs.setValue();
+        System.out.println(data);
+        ref.updateChildren(data, new DatabaseReference.CompletionListener() {
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                System.out.println("complete" + databaseReference.push());
+            }
+        });
+
+    }
+
 }
 
