@@ -32,7 +32,7 @@ public class Server {
 
             t.start();
             try {
-                Thread.sleep(100000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
