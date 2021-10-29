@@ -7,6 +7,50 @@
     android:layout_margin = "16dp"
     tools:context = ".MainActivity">
 
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="81dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="149dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="DOOR:" />
+
+    <TextView
+        android:id="@+id/doortxt"
+        android:layout_width="51dp"
+        android:layout_height="29dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="161dp"
+        android:text="OPEN" />
+
+    <ImageView
+        android:id="@+id/doorOpen"
+        android:layout_width="81dp"
+        android:layout_height="63dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="142dp"
+        android:layout_marginEnd="104dp"
+        app:srcCompat="@drawable/opendoor" />
+
+    <Switch
+        android:id="@+id/doorSwitch"
+        android:layout_width="53dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="277dp"
+        android:layout_marginTop="161dp"
+        android:layout_marginEnd="49dp"
+        android:checked="true" />
+
     <Switch
         android:id="@+id/lampSwitch"
         android:layout_width="53dp"

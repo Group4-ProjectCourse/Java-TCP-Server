@@ -36,10 +36,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static final int SERVERPORT = 2400;
     public static final String SERVER_IP = "192.168.1.8";
-
+   public TextView doortxt;
+    public Switch doorswitch;
     public Switch lampSwitch;
     public TextView lamptxt;
     public ImageView lightON;
+    public ImageView doorOpen;
     private DataBase db = new DataBase();
 
     @Override
@@ -53,7 +55,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lightON = (ImageView) findViewById(R.id.lightON);
         lamptxt = (TextView) findViewById(R.id.lamptxt);
 
-
+        doortxt = (TextView) findViewById(R.id.doortxt);
+        doorOpen = (ImageView) findViewById(R.id.doorOpen);
+        doorswitch = (Switch) findViewById(R.id.doorSwitch);
         //   String read = in.readLine();
         //  System.out.println("MSG:" + read);
 
@@ -85,6 +89,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        doorswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (doorswitch.isChecked()) {
+                    doortxt.setText("OPEN");
+                    sendMessage(doortxt.getText().toString());
+                    doorOpen.setImageResource(R.drawable.opendoor);
+
+                }else {
+                    doortxt.setText("CLOSED");
+                    sendMessage(doortxt.getText().toString());
+                    doorOpen.setImageResource(R.drawable.doorclosed);
+
+                }
+
+            }
+        });
+
     }
 
 
@@ -94,6 +116,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.lampSwitch:
                 sendMessage(lampSwitch.getText().toString());
+                break;
+
+            case R.id.doorSwitch:
+                sendMessage(doorswitch.getText().toString());
         }
     }
 
