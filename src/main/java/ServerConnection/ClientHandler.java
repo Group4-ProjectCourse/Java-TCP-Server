@@ -1,6 +1,8 @@
 package ServerConnection;
 
 import Data.DataBaseService;
+import Model.CallBack;
+import Model.RegisterUser;
 
 import javax.xml.stream.FactoryConfigurationError;
 import java.io.*;
@@ -8,6 +10,9 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Objects;
+
+
 
 public class ClientHandler implements Runnable {
 
@@ -15,6 +20,7 @@ public class ClientHandler implements Runnable {
     private BufferedReader in;
     private PrintWriter out;
     private boolean end = false;
+
 
     BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
     BufferedWriter key = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -35,6 +41,9 @@ public class ClientHandler implements Runnable {
     // This class will handle the client request, such as the database request
     // for now it will just send the host address
 
+
+    // this variable pin reads from the firebase the password
+    String pin =  DataBaseService.handleUserPin("Pin");
     public void run() {
 
 
@@ -50,18 +59,44 @@ public class ClientHandler implements Runnable {
 
 // we read the client response  here.
                 assert stringData != null;
-                System.out.println("clientResponse " + stringData.toLowerCase());
+             //   System.out.println("clientResponse " + stringData.toLowerCase());
                 //dataBaseService.testWriteToDatabase("LIGHT");
                 // here we should get the client response such as value change (LAMP= DARK or LAMP = LIGHT)
-           dataBaseReference(stringData.toUpperCase());
+             //   System.out.println("Here is the pin " + DataBaseService.handleUserPin());
+               // passingValue("Pin");
 
 
-                out.println(InetAddress.getLocalHost().getHostAddress());
+
+
+
+                //System.out.println("password"  +  pin);
+
+                // if the value sent from android is equal to the pin read from database then send "Correct"
+                    if (pin != null && Objects.equals(pin, stringData)) {
+                        out.println("Correct");
+                        //out.println(InetAddress.getLocalHost().getHostAddress());
+
+                    }else {
+                        //now we are logged in and should be able to change the different states
+                        out.println(" "+ stringData.toUpperCase());
+
+                        dataBaseReference(stringData.toUpperCase());
+
+
+
+
+
+
+
+
+                }
+
+
                 end = true;
             }
 
 
-        } catch (NullPointerException | IOException e) {
+        } catch (NullPointerException e ) {
             e.printStackTrace();
         } finally {
             try {
@@ -72,6 +107,8 @@ public class ClientHandler implements Runnable {
             }
         }
     }
+
+
 
     // this method should check whether the string being sent follows a certain structure
 public static void dataBaseReference(String stringData) {
@@ -87,6 +124,8 @@ public static void dataBaseReference(String stringData) {
             DataBaseService.handleDoorSwitch(stringData);
 
         }else {
+
+
 
         }
 

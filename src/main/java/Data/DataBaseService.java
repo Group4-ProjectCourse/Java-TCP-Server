@@ -1,20 +1,16 @@
 package Data;
 
+import Model.CallBack;
 import Model.RegisterUser;
-import com.google.api.client.util.Data;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import org.apache.log4j.BasicConfigurator;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,7 +72,6 @@ public class DataBaseService {
     public FirebaseDatabase getDb() {
         return firebaseDatabase;
     }
-
 
 
     // trying to change the lightSwitch state
@@ -177,5 +172,40 @@ public class DataBaseService {
 
     }
 
+
+    private static String value;
+
+
+    // this method reads from firebase the pin code value
+    public static String handleUserPin(String uid) {
+        DataBaseService fbs = null;
+        fbs = new DataBaseService();
+        DatabaseReference ref = fbs.getDb()
+                .getReference("/Users");
+        ref.child(uid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // 3. Set the public variable in your class equal to value retrieved
+                        value = dataSnapshot.getValue(String.class);
+                        // 4a. EDIT: now that your fetch succeeded, you can trigger whatever else you need to run in your class that uses `yourNameVariable`, and you can be sure `yourNameVariable` is not null.
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+
+                });
+
+        return value;
+    }
 }
+
+
+
+
+
 

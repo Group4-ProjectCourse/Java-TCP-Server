@@ -3,6 +3,7 @@ package ServerConnection;
 import Data.DataBaseService;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class Server {
 
 
             Thread t = new Thread(new ShowDbChanges());
+            System.out.println(InetAddress.getLocalHost().getHostAddress());
 
             t.start();
             try {

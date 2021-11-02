@@ -7,4 +7,5 @@ public class RegisterUser {
     // address
     // phoneNumber
     //more fields??
+
 }
