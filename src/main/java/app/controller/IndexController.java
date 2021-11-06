@@ -9,7 +9,6 @@ import spark.Route;
 import java.util.HashMap;
 import java.util.Map;
 
-import static app.Application.cardDao;
 public class IndexController {
     public static Route serveIndexPage = (Request req, Response res) -> {
         Map<String, Object> model = new HashMap<>(2);

@@ -1,8 +1,14 @@
 package app.util;
 
+import app.database.MagneticCard;
+import com.google.gson.Gson;
 import spark.Request;
 
 public class RequestUtil {
+
+    public static MagneticCard getCard(Request request) {
+        return new Gson().fromJson(request.body(), MagneticCard.class);
+    }
 
     public static String getQueryLocale(Request request) {
         return request.queryParams("locale");

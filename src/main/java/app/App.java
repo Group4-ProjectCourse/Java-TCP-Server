@@ -3,7 +3,7 @@ package app;
 import app.controller.CardController;
 import app.controller.IndexController;
 import app.database.CardDao;
-import app.user.UserDao;
+import app.database.MongoManager;
 import app.util.Filters;
 import app.util.Path;
 import app.util.ViewUtil;
@@ -13,13 +13,15 @@ import org.slf4j.LoggerFactory;
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
-public class Application {
-    private static final Logger logger = LoggerFactory.getLogger(Application.class);
+public class App {
+    private static final Logger logger = LoggerFactory.getLogger(App.class);
     public static CardDao cardDao;
+    public static MongoManager mongoManager;
     //public static UserDao userDao;
 
     static {
         cardDao = new CardDao();
+        mongoManager = new MongoManager();
         //userDao = new UserDao();
     }
 
@@ -39,12 +41,13 @@ public class Application {
         get(Path.Web.INDEX, IndexController.serveIndexPage);
         get(Path.Web.CARDS, CardController.fetchAllCards);
         get(Path.Web.ONE_CARD, CardController.fetchOneCard);
+        post(Path.Web.CARD_VERIFY, CardController.verifyOneCard);
         get("*", ViewUtil.notFound);
 
         //Set up after-filters (called after each get/post)
-        after("*", Filters.addGzipHeader);
+        //after("*", Filters.addGzipHeader);
 
-        enableCors();
+        //enableCors();
     }
 
     private static void enableCors() {
