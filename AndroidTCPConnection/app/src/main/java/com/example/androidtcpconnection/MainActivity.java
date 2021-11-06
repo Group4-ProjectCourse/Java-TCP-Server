@@ -73,14 +73,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-                    sendMessage(lamptxt.getText().toString());
+                    sendMessage("1");
 
                     // client should not be able to acces the database and update it for now. Server should handle it
                    // db.UpdateLampElement(lamptxt.getText().toString());
 
                     lightON.setImageResource(R.drawable.lighton);
                 } else {
-                    lamptxt.setText("DARK");
+                    lamptxt.setText("0");
 
                     sendMessage(lamptxt.getText().toString());
                    // db.UpdateLampElement(lamptxt.getText().toString());

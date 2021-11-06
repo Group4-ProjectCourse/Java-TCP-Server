@@ -98,7 +98,7 @@ public class DataBaseService {
         fbs = new DataBaseService();
 
         DatabaseReference ref = fbs.getDb()
-                .getReference("/Devices/Lamp/Ambient");
+                .getReference("/Lamps");
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://smart-house-ae2d9-default-rtdb.europe-west1.firebasedatabase.app/");
 //        DatabaseReference ref = database.getReference();
         System.out.println("reference " + ref);
@@ -107,7 +107,7 @@ public class DataBaseService {
 
         System.out.println(ref);
         data = new HashMap<String, Object>();
-        data.put("LightSwitch", value);
+        data.put("lamp1", value);
 
 //        refs.setValue();
         System.out.println(data);

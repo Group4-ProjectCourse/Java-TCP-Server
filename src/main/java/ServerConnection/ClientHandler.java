@@ -115,7 +115,7 @@ public static void dataBaseReference(String stringData) {
 
 
 
-        if (stringData.equals("LIGHT") || stringData.equals("DARK")) {
+        if (stringData.equals("0") || stringData.equals("1")) {
 
             DataBaseService.handleLightSwitch(stringData);
 
