@@ -33,10 +33,11 @@ public class CardController {
     };
 
     public static Route verifyOneCard = (Request req, Response res) -> {
-
         MagneticCard receivedCard = RequestUtil.getCard(req);
+        out.println("Received UUID: " + receivedCard.getUUID());
         String receivedPassword = receivedCard.getPassword();
         boolean uuidVerified = App.mongoManager.verifyUUID(receivedCard);
+        out.println("UUID verified: " + uuidVerified);
         res.header("Content-Type", "application/json;charset=utf-8");
 
         if(receivedPassword == null && uuidVerified) {

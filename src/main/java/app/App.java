@@ -26,9 +26,9 @@ public class App {
     }
 
     public static void main(String[] args) {
-
         // Configure Spark
         port(8085);
+        ipAddress("192.168.1.195");
         staticFiles.location("/public");
         staticFiles.expireTime(600L);
         enableDebugScreen();
@@ -47,7 +47,7 @@ public class App {
         //Set up after-filters (called after each get/post)
         //after("*", Filters.addGzipHeader);
 
-        //enableCors();
+        enableCors();
     }
 
     private static void enableCors() {
