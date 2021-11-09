@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText pinCode;
 
     public static final int SERVERPORT = 2400;
-    public static final String SERVER_IP = "192.168.1.8";
+    public static final String SERVER_IP = "194.47.46.148";
 
     private Button login;
 private Button connectToServer;

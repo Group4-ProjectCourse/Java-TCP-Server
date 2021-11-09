@@ -1,8 +1,8 @@
 package ServerConnection;
 
 import Data.DataBaseService;
-import Model.CallBack;
-import Model.RegisterUser;
+import Model.*;
+import com.google.gson.Gson;
 
 import javax.xml.stream.FactoryConfigurationError;
 import java.io.*;
@@ -20,6 +20,7 @@ public class ClientHandler implements Runnable {
     private BufferedReader in;
     private PrintWriter out;
     private boolean end = false;
+    SmartHouse smartHouse = new SmartHouse();
 
 
     BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
@@ -43,7 +44,7 @@ public class ClientHandler implements Runnable {
 
 
     // this variable pin reads from the firebase the password
-    String pin =  DataBaseService.handleUserPin("Pin");
+   // String pin =  DataBaseService.handleUserPin("Pin");
     public void run() {
 
 
@@ -59,55 +60,108 @@ public class ClientHandler implements Runnable {
 
 // we read the client response  here.
                 assert stringData != null;
-             //   System.out.println("clientResponse " + stringData.toLowerCase());
+                //   System.out.println("clientResponse " + stringData.toLowerCase());
                 //dataBaseService.testWriteToDatabase("LIGHT");
                 // here we should get the client response such as value change (LAMP= DARK or LAMP = LIGHT)
-             //   System.out.println("Here is the pin " + DataBaseService.handleUserPin());
-               // passingValue("Pin");
+                //   System.out.println("Here is the pin " + DataBaseService.handleUserPin());
+                // passingValue("Pin");
 
 
+                if (stringData.equalsIgnoreCase("lightoff")) {
+                    smartHouse.setLight(new Light(1, false));
+                    editJsonFile(smartHouse);
+                    out.write("Light is OFF");
+                    DataBaseService.handleLightSwitch("0");
+
+                    out.flush();
+                    break;
+                } else if (stringData.equalsIgnoreCase("lighton")) {
+                    smartHouse.setLight(new Light(1, true));
+                    editJsonFile(smartHouse);
+                    out.write("Light is ON");
+                    DataBaseService.handleLightSwitch("1");
+
+                    out.flush();
+                    break;
+                } else if (stringData.equalsIgnoreCase("dooropen")) {
+                    smartHouse.setDoor(new Door(1, true));
+                    editJsonFile(smartHouse);
+                    out.write("Door is OPEN");
+                    DataBaseService.handleDoorSwitch("OPEN");
+                    out.flush();
+                    break;
+                } else if (stringData.equalsIgnoreCase("doorclosed")) {
+                    smartHouse.setDoor(new Door(1, false));
+                    editJsonFile(smartHouse);
+                    DataBaseService.handleDoorSwitch("Closed");
+                    out.write("Door is CLOSED");
+                    out.flush();
+                    break;
+                } else if (stringData.equalsIgnoreCase("windowopen")) {
+                    smartHouse.setWindow(new Window());
+                    editJsonFile(smartHouse);
+                    out.write("Window is OPEN");
+                    out.flush();
+                    break;
+                } else if (stringData.equalsIgnoreCase("windowclosed")) {
+                    smartHouse.setWindow(new Window());
+                    editJsonFile(smartHouse);
+                    out.write("Window is CLOSED");
+                    out.flush();
+                    break;
+                } else if (stringData.equalsIgnoreCase("Bye")) {
+                    client.close();
+                    break;
+                } else if (stringData.equalsIgnoreCase("Connected")) {
+                    String tempC = in.readLine();
+                    String tempF = in.readLine();
+                    System.out.println("Temp now in C : " + tempC);
+                    System.out.println("Temp now in F: " + tempF);
+                    Temp temp = new Temp(Float.parseFloat(tempC), Float.parseFloat(tempF));
 
 
-
-                //System.out.println("password"  +  pin);
-
-                // if the value sent from android is equal to the pin read from database then send "Correct"
-                    if (pin != null && Objects.equals(pin, stringData)) {
-                        out.println("Correct");
-                        //out.println(InetAddress.getLocalHost().getHostAddress());
-
-                    }else {
-                        //now we are logged in and should be able to change the different states
-                        out.println(" "+ stringData.toUpperCase());
-
-                        dataBaseReference(stringData.toUpperCase());
-
-
-
-
-
-
-
-
+                    DataBaseService.handleTemperatureSensor(tempC);
+                    smartHouse.setcTemp(temp);
+                    if (!smartHouse.getLight().isLightStatus()) {
+                        out.write(0);
+                        out.flush();
+                    }
+                    if (smartHouse.getLight().isLightStatus()) {
+                        out.write(1);
+                        out.flush();
+                    }
+                    if (smartHouse.getDoor().isDoorStatus()) {
+                        out.write(1);
+                        out.flush();
+                    }
+                    if (!smartHouse.getDoor().isDoorStatus()) {
+                        out.write(0);
+                        out.flush();
+                    }
+                    in.close();
+                    break;
+                } else {
+                    char[] chars = {'m', 'n', 'b'};
+                    out.write(chars);
+                    out.close();
+                    client.close();
+//                            System.out.println(inputLine);
+//                            out.write(inputLine);
+//                            out.flush();
                 }
-
-
                 end = true;
             }
+            //System.out.println("password"  +  pin);
+
+            // if the value sent from android is equal to the pin read from database then send "Correct"
 
 
-        } catch (NullPointerException e ) {
-            e.printStackTrace();
-        } finally {
-            try {
-                in.close();
-                end = false;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-    }
 
+    }
 
 
     // this method should check whether the string being sent follows a certain structure
@@ -115,9 +169,8 @@ public static void dataBaseReference(String stringData) {
 
 
 
-        if (stringData.equals("0") || stringData.equals("1")) {
+        if (stringData.equals("LIGHT") || stringData.equals("DARK")) {
 
-            DataBaseService.handleLightSwitch(stringData);
 
 
         }else  if (stringData.equals("OPEN") || stringData.equals("CLOSED")) {
@@ -130,5 +183,18 @@ public static void dataBaseReference(String stringData) {
         }
 
     }
-
+    public void editJsonFile(SmartHouse smartHouse) {
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(smartHouse);
+        try {
+            FileWriter writeTofile = new FileWriter("smartHouse.json");
+            writeTofile.write(jsonString);
+            writeTofile.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(jsonString);
+    }
 }
+
+

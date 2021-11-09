@@ -2,6 +2,8 @@
   <library name="Maven: com.fasterxml.jackson.core:jackson-core:2.12.3">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.12.3/jackson-core-2.12.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/gson-2.2.2.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/json-20210307.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.12.3/jackson-core-2.12.3-javadoc.jar!/" />

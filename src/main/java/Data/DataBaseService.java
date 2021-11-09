@@ -98,7 +98,7 @@ public class DataBaseService {
         fbs = new DataBaseService();
 
         DatabaseReference ref = fbs.getDb()
-                .getReference("/Lamps");
+                .getReference("/Lamp/Ambient");
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://smart-house-ae2d9-default-rtdb.europe-west1.firebasedatabase.app/");
 //        DatabaseReference ref = database.getReference();
         System.out.println("reference " + ref);
@@ -107,7 +107,7 @@ public class DataBaseService {
 
         System.out.println(ref);
         data = new HashMap<String, Object>();
-        data.put("lamp1", value);
+        data.put("LightSwitch", value);
 
 //        refs.setValue();
         System.out.println(data);
@@ -146,7 +146,7 @@ public class DataBaseService {
 
     }
 
-    public static void handleTemperatureSensor(double value) {
+    public static void handleTemperatureSensor(String value) {
         DataBaseService fbs = null;
         fbs = new DataBaseService();
 
@@ -176,7 +176,7 @@ public class DataBaseService {
     private static String value;
 
 
-    // this method reads from firebase the pin code value
+     //this method reads from firebase the pin code value
     public static String handleUserPin(String uid) {
         DataBaseService fbs = null;
         fbs = new DataBaseService();
@@ -189,7 +189,7 @@ public class DataBaseService {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // 3. Set the public variable in your class equal to value retrieved
                         value = dataSnapshot.getValue(String.class);
-                        // 4a. EDIT: now that your fetch succeeded, you can trigger whatever else you need to run in your class that uses `yourNameVariable`, and you can be sure `yourNameVariable` is not null.
+                        // 4a. EDIT: now that your fetch succeeded, you can trigger whatever else you need to run in your class that uses yourNameVariable, and you can be sure yourNameVariable is not null.
 
 
                     }
@@ -202,6 +202,7 @@ public class DataBaseService {
 
         return value;
     }
+
 }
 
 
