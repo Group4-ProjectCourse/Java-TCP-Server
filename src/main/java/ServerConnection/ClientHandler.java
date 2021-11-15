@@ -120,7 +120,7 @@ public class ClientHandler implements Runnable {
                     Temp temp = new Temp(Float.parseFloat(tempC), Float.parseFloat(tempF));
 
 
-                    DataBaseService.handleTemperatureSensor(tempC);
+                    DataBaseService.handleTemperatureSensor(Integer.parseInt(tempC));
                     smartHouse.setcTemp(temp);
                     if (!smartHouse.getLight().isLightStatus()) {
                         out.write(0);
