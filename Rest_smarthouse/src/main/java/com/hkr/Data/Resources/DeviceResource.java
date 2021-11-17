@@ -19,7 +19,7 @@ public class DeviceResource {
 
 
 
-    Device deviceTest = new Device();
+    Device device = new Device();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -33,12 +33,12 @@ public class DeviceResource {
         FireBaseService.getAllDevices(new CallBack() {
             @Override
             public Device onCallBack(Device value) {
-                deviceTest = new Device(value.getLightSwitch(), value.getDoorSwitch(),value.getHumidity(),value.getTemperature(),value.getWindowSwitch());
+                device = new Device(value.getLightSwitch(), value.getDoorSwitch(),value.getHumidity(),value.getTemperature(),value.getWindowSwitch());
 
-                System.out.println("Here is the value" + deviceTest.toString());
+                System.out.println("Here is the value" + device.toString());
 
                 deviceTestFut.complete(new Device(value.getLightSwitch(), value.getDoorSwitch(),value.getHumidity(),value.getTemperature(),value.getWindowSwitch()));
-                return deviceTest;
+                return device;
             }
         });
 
@@ -70,7 +70,7 @@ public class DeviceResource {
             public String callbackName(Device deviced) {
                 deviceTestFut.complete(new Device(deviced.getLightSwitch(), deviced.getDoorSwitch(),deviced.getHumidity(),deviced.getTemperature(),deviced.getWindowSwitch()));
 
-                System.out.println("Here is the value light" + deviceTest.getLightSwitch());
+                System.out.println("Here is the value light" + DeviceResource.this.device.getLightSwitch());
 
 
                 return deviced.toString();
@@ -119,7 +119,7 @@ public class DeviceResource {
             public String callbackName(Device deviced) {
                 deviceTestFut.complete(new Device(deviced.getLightSwitch(), deviced.getDoorSwitch(),deviced.getHumidity(),deviced.getTemperature(),deviced.getWindowSwitch()));
 
-                System.out.println("Here is the value light" + deviceTest.getLightSwitch());
+                System.out.println("Here is the value light" + device.getLightSwitch());
 
 
                 return deviced.toString();
@@ -168,7 +168,7 @@ public class DeviceResource {
             public String callbackName(Device deviced) {
                 deviceTestFut.complete(new Device(deviced.getLightSwitch(), deviced.getDoorSwitch(),deviced.getHumidity(),deviced.getTemperature(),deviced.getWindowSwitch()));
 
-                System.out.println("Here is the value light" + deviceTest.getLightSwitch());
+                System.out.println("Here is the value light" + device.getLightSwitch());
 
 
                 return deviced.toString();
