@@ -135,6 +135,36 @@ public class FireBaseService {
 
     }
 
+    public static  void addDevice(String key,String value) {
+
+        FireBaseService fbs = null;
+        fbs = new FireBaseService();
+        device = new Device();
+        mylist = new ArrayList<Map<String, Object>>();
+        DatabaseReference ref = fbs.getDb()
+                .getReference("/Devices/State");
+        Map<String, Object> chemainChild = new HashMap<>();
+        // chemainChild.put("server/user/",array);
+
+        data = new HashMap<String, Object>();
+        data.put(key, value);
+
+//        refs.setValue();
+        System.out.println(data);
+        ref.child(key).setValue(value,new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                System.out.println("succes!" +  databaseReference.push());
+            }
+        });
+        {
+
+        }
+
+    }
+
+
 
     public static void deleteDevice(String key) {
         FireBaseService fbs = null;

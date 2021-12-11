@@ -104,6 +104,48 @@ public class DeviceResource {
     }
 
 
+
+    @POST
+    @Path("device/{key}/{newValue}")
+
+    //in firebase to add a new device you have to specify its value as well
+   // http://localhost:8080/Rest_smarthouse_war_exploded/api/devices/device/name-of-the-device/the-value-you-want-to-give-it
+
+
+    public String addDevice(@PathParam("key") String key, @PathParam("newValue") String newValue) throws ExecutionException, InterruptedException {
+        CompletableFuture<Device> deviceTestFut = new CompletableFuture<>();
+        FireBaseService.getDeviceByName(new CallBackName() {
+            @Override
+            public String callbackName(Device deviced) {
+                deviceTestFut.complete(new Device(deviced.getLightSwitch(), deviced.getDoorSwitch(),deviced.getHumidity(),deviced.getTemperature(),deviced.getWindowSwitch()));
+
+                System.out.println("Here is the value light" + device.getLightSwitch());
+
+
+                return deviced.toString();
+            }
+
+        });
+
+
+        Device deviceUpdate = deviceTestFut.get();
+        if (key!=null) {
+            FireBaseService.addDevice(key, String.valueOf(newValue));
+
+
+            return deviceUpdate.toString();
+        }
+        // something went wrong
+        return  null;
+
+
+
+    }
+
+
+
+
+
     @PUT
     @Path("device/{key}/{updateValue}")
 
