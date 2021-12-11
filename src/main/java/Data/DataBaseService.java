@@ -235,7 +235,7 @@ public class DataBaseService {
 
 
      //this method reads from firebase the pin code value
-    public static String handleUserPin(String uid) {
+   /* public static String handleUserPin(String uid) {
         DataBaseService fbs = null;
         fbs = new DataBaseService();
         DatabaseReference ref = fbs.getDb()
@@ -259,7 +259,7 @@ public class DataBaseService {
                 });
 
         return value;
-    }
+    }*/
 
 }
 

@@ -9,6 +9,7 @@ import com.hkr.Data.Model.CallBack;
 import com.hkr.Data.Model.CallBackName;
 import com.hkr.Data.Model.Device;
 
+import com.hkr.Data.Model.SmartHouse;
 import org.apache.log4j.BasicConfigurator;
 
 import java.io.FileInputStream;
@@ -27,7 +28,7 @@ public class FireBaseService {
     private static String value;
     public static Device device;
     private static List<Map<String, Object>> mylist;
-
+   public static SmartHouse smartHouse = new SmartHouse();
 
     public FireBaseService() {
         try {
@@ -85,6 +86,8 @@ public class FireBaseService {
 
                 callback.onCallBack(dataSnapshot.getValue(Device.class));
 
+
+
             }
 
 
@@ -133,7 +136,34 @@ public class FireBaseService {
     }
 
 
-    // this is for String values in firebase
+    public static void deleteDevice(String key) {
+        FireBaseService fbs = null;
+        fbs = new FireBaseService();
+        device = new Device();
+        mylist = new ArrayList<Map<String, Object>>();
+        DatabaseReference ref = fbs.getDb()
+                .getReference("/Devices/State");
+        Map<String, Object> chemainChild = new HashMap<>();
+        // chemainChild.put("server/user/",array);
+
+        data = new HashMap<String, Object>();
+        data.put(key, value);
+
+//        refs.setValue();
+        System.out.println(data);
+        ref.child(key).removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                System.out.println("succes!" +  databaseReference.push());
+            }
+        });
+        {
+
+        }
+    }
+
+            // this is for String values in firebase
     public static void updateDevice(String key, String value) {
         FireBaseService fbs = null;
         fbs = new FireBaseService();

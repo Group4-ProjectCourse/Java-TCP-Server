@@ -24,7 +24,7 @@ public class DeviceResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String getAllDevices() throws ExecutionException, InterruptedException {
+    synchronized public String getAllDevices() throws ExecutionException, InterruptedException {
 
         // this makes sure we wait until the data is read from firebase
         CompletableFuture<Device> deviceTestFut = new CompletableFuture<>();
@@ -63,7 +63,7 @@ public class DeviceResource {
     @Path("device/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String getDeviceByName(@PathParam("name") String device) throws ExecutionException, InterruptedException {
+    synchronized public String  getDeviceByName(@PathParam("name") String device) throws ExecutionException, InterruptedException {
         CompletableFuture<Device> deviceTestFut = new CompletableFuture<>();
         FireBaseService.getDeviceByName(new CallBackName() {
             @Override
@@ -112,7 +112,7 @@ public class DeviceResource {
 
     // url is  basically this if you want to change the light state http://localhost:8080/Rest_smarthouse_war_exploded/api/devices/device/LightSwitch/LIGHT
     // /devices/(the name of the device)/(what value you want to change it to)
-    public String updateDevice(@PathParam("key") String key, @PathParam("updateValue") String updateValue) throws ExecutionException, InterruptedException {
+   public String updateDevice(@PathParam("key") String key, @PathParam("updateValue") String updateValue) throws ExecutionException, InterruptedException {
         CompletableFuture<Device> deviceTestFut = new CompletableFuture<>();
         FireBaseService.getDeviceByName(new CallBackName() {
             @Override
@@ -151,7 +151,51 @@ public class DeviceResource {
 
     }
 
+@DELETE
 
+@Path("device/{key}")
+
+// here is the url to delete a device
+    //http://localhost:8080/Rest_smarthouse_war_exploded/api/devices/device/name-of-the-device
+    public String deleteDevice(@PathParam("key") String key) throws ExecutionException, InterruptedException {
+
+    CompletableFuture<Device> deviceTestFut = new CompletableFuture<>();
+    FireBaseService.getDeviceByName(new CallBackName() {
+        @Override
+        public String callbackName(Device deviced) {
+            deviceTestFut.complete(new Device(deviced.getLightSwitch(), deviced.getDoorSwitch(),deviced.getHumidity(),deviced.getTemperature(),deviced.getWindowSwitch()));
+
+            System.out.println("Here is the value light" + device.getLightSwitch());
+
+
+            return deviced.toString();
+        }
+
+    });
+
+
+    Device deviceUpdate = deviceTestFut.get();
+    if (key.equals("DoorSwitch")) {
+        FireBaseService.deleteDevice(key);
+
+
+
+        return deviceUpdate.getDoorSwitch();
+    } else if (key.equals("LightSwitch")) {
+
+        FireBaseService.deleteDevice(key);
+
+        return deviceUpdate.getLightSwitch();
+
+    }else if (key.equals("WindowSwitch")) {
+        FireBaseService.deleteDevice(key);
+
+        return deviceUpdate.getWindowSwitch();
+    }
+    // something went wrong
+    return  null;
+
+}
 
 
     @PUT
