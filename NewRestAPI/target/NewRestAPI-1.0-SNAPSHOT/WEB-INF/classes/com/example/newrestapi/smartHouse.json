@@ -1,0 +1,1 @@
+{"lights":[{"lightId":1,"lightStatus":false},{"lightId":2,"lightStatus":true}],"doors":[{"doorId":1,"doorStatus":true},{"doorId":2,"doorStatus":false}],"windows":[{"windowId":1,"windowStatus":false},{"windowId":2,"windowStatus":true}],"humidity":26,"temperature":100}
